@@ -1,0 +1,12 @@
+QWidget{
+background-color:rgb(255, 255, 255);
+color:#000000
+}
+
+QTextEdit{
+    background-color: rgb(46, 46,46);
+    color:#FFFFFF
+}
+QMenuBar::item:selected{
+ color:#000000
+}
