@@ -1,6 +1,10 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog ,QWidget, QVBoxLayout, QTableWidget,QTableWidgetItem
 from PyQt5.uic import loadUi
 import sys
+import openpyxl
+
+a=2
 
 class MainUI(QMainWindow):
     current_fontsize=8
@@ -8,7 +12,7 @@ class MainUI(QMainWindow):
     def __init__(self):
         super(MainUI,self).__init__()
         
-        loadUi("texteditor.ui", self)
+        loadUi("Excel-Tool/excel.ui", self)
         self.current_Path= None
         #self.current_fontsize=8
         self.setWindowTitle("untitled")
@@ -21,14 +25,11 @@ class MainUI(QMainWindow):
         self.actionCut.triggered.connect(self.cut)
         self.actionPaste.triggered.connect(self.paste)
         self.actionOpen.triggered.connect(self.open)
-        self.actionSet_Dark_Mode.triggered.connect(self.darkmode)
-        self.actionSet_Light_Mode.triggered.connect(self.lightmode)
-        self.actionIncrease_Font_Size.triggered.connect(self.incfont)
-        self.actionIncrease_Font_Size.triggered.connect(self.decfont)
+        
         
 
     def newfile(self):
-        self.textEdit.clear()
+        #self.textEdit.clear()
         self.setWindowTitle("untitled")
         current_Path=None
     
@@ -74,29 +75,25 @@ class MainUI(QMainWindow):
         self.textEdit.cut()
 
 
-    def darkmode(self):
-        with open('darkmode.css','r') as fp:
-            style=fp.read()
-            self.setStyleSheet(style)
-    
-    def lightmode(self):
-        with open('lightmode.css','r') as fp:
-            style=fp.read()
-            self.setStyleSheet(style)
-    
-    
-    def incfont(self):
-        self.current_fontsize += 1
-        self.textEdit.setFontPointSize(self.current_fontsize)
-
-    def decfont(self):
-        self.current_fontsize -= 1
-        self.textEdit.setFontPointSize(self.current_fontsize)
+   
         
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    ui =MainUI()
-    ui.show()
-    app.exec_()
+
+    if a == 1:
+        ui =MainUI()
+        ui.show()
+    else:
+        mainwindow = MainUI()
+        widget = QtWidgets.QStackedWidget()
+        widget.addWidget(mainwindow)
+        widget.setFixedHeight(850)
+        widget.setFixedWidth(1120)
+        widget.show()
+    try:
+        sys.exit(app.exec_())
+    except:
+        print ("Exiting")
+
